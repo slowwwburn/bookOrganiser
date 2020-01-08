@@ -9,7 +9,6 @@ const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 const config = configJson[env];
 
 console.log('this is the environment: ', env);
-console.log(config)
 
 const db = {};
 
@@ -33,7 +32,7 @@ if (config.environment === 'production') {
   }
   );
 } else {
-  sequelize = new Sequelize( config );
+  sequelize = new Sequelize(config);
 }
 
 fs
