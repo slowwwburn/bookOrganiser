@@ -4,17 +4,13 @@ class BookService {
   static async getAllBooks() {
     try {
       return await database.Book.findAll()
-    } catch (err) {
-      throw err
-    }
+    } catch (err) { throw err }
   }
 
   static async addBook(newBook) {
     try {
       return await database.Book.create(newBook)
-    } catch (err) {
-      throw err
-    }
+    } catch (err) { throw err }
   }
 
   static async updateBook(id, updateBook) {
@@ -41,7 +37,7 @@ class BookService {
         where: { id: Number(id) }
       })
       return theBook
-    } catch (err){
+    } catch (err) {
       throw err
     }
   }

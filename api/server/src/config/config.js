@@ -10,14 +10,20 @@ module.exports = {
     "password": "Dakun4life",
     "database": "books",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "saltRounds": 2,
+    "jwtSecret": "yo-its-a-secret",
+    "tokenExpireTime": "6h"
   },
   "test": {
     "username": "postgres",
     "password": "Dakun4life",
     "database": "book_test",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "saltRounds": "2",
+    "jwtSecret": "yo-its-a-secret",
+    "tokenExpireTime": "6h"
   },
   "production": {
     "username": "postgres",

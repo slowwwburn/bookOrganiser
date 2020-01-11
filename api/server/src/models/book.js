@@ -11,7 +11,17 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+    // user_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: Users,
+    //     key: 'id'
+    //   }
+    // }
   });
+
+  // Book.hasMany(Users, { foreignKey: 'user_id' })
   return Book;
 };
