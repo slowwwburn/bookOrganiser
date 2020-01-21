@@ -95,7 +95,7 @@ class BookController{
       }
       return util.send(res)
     } catch (err) {
-      util.setError(400, err)
+      util.setError(400, err.message)
       return util.send(res)
     }
   }

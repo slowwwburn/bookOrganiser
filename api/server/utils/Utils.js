@@ -7,6 +7,10 @@ const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 
 const config = configJson[env];
 
+function regexChecker(regex, value) {
+  return regex.test(value.toString());
+}
+
 export default class Util {
   constructor() {
     this.statusCode = null
@@ -19,7 +23,7 @@ export default class Util {
     this.statusCode = statusCode
     this.message = message
     this.data = data
-    this.type = 'success'
+    this.type = 'true'
   }
 
   setError(statusCode, message) {
@@ -30,12 +34,13 @@ export default class Util {
 
   send(res) {
     const result = {
-      status: this.type,
+      status: this.statusCode,
+      data: this.data,
+      success: this.type,
       message: this.message,
-      data: this.data
     }
 
-    if (this.type === 'success') {
+    if (this.type === 'true') {
       return res.status(this.statusCode).json(result)
     }
 
@@ -72,4 +77,48 @@ export default class Util {
       return verify;
     } catch (err) { throw err }
   }
+
+  imageConverter(file) {
+    if (file && file == {}) {
+      const fileRegex = /(data:image\/(png|jpg|jpeg);base64)/;
+      const valid = regexChecker(fileRegex, file.data);
+      console.log('valid is', valid);
+      const fileType = file.name.split('.')[1];
+      const fileName = file.name.split('.')[0].replace(/ /, '_') + Date.now();
+      if (valid) {
+        try {
+          const base64File = file.data.split('base64,')[1];
+          fs.writeFile(path.resolve('public', `${fileName}.${fileType}`), base64File, 'base64', (err) => {
+            if (err) {
+              throw err;
+            }
+          });
+          // eslint-disable-next-line no-param-reassign
+          file.data = `/public/${fileName}.${fileType}`;
+          return file;
+        } catch (error) {
+          throw error;
+        }
+      } else return file;
+    } else return file
+  }
+
+  fileRemoval(file) {
+  const fileRegex = /public/;
+  const valid = regexChecker(fileRegex, file);
+  if (valid) {
+    // eslint-disable-next-line no-param-reassign
+    file = file.replace(/\/public/, 'public');
+    const filePath = path.resolve(file);
+    try {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+}
 }
