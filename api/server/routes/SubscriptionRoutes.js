@@ -3,7 +3,6 @@ import SubscriptionController from '../controllers/SubscriptionController'
 const router = Router()
 
 router.get('/', SubscriptionController.getAllSubscriptions)
-router.get('/title', SubscriptionController.getSubscriptionByEmail)
 router.post('/', SubscriptionController.addSubscription)
 router.put('/:id', SubscriptionController.updateSubscription)
 router.delete(':/id', SubscriptionController.deleteSubscription)

@@ -3,7 +3,6 @@ import PageController from '../controllers/PageController'
 const router = Router()
 
 router.get('/', PageController.getAllPages)
-router.get('/title', PageController.getPageByName)
 router.post('/', PageController.addPage)
 router.put('/:id', PageController.updatePage)
 router.delete(':/id', PageController.deletePage)
